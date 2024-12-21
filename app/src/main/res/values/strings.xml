@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">StorageViewer</string>
+    <string name="meno">Meno</string>
+    <string name="name">name</string>
+    <string name="button">Button</string>
+    <string name="hladaj">Hľadaj</string>
+    <string name="showAll">Zobraz všetky objednávky</string>
+    <string name="LabelCustomerName">Zadaj meno zákazníka:</string>
+    <string name="LabelProductInput">Zadaj názov tovaru:</string>
+    <string name="loadDatabase">Načítaj databázu zo zložky</string>
+</resources>
