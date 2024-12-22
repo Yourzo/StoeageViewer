@@ -3,7 +3,6 @@ package sk.zuray.storageviewer
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
@@ -17,9 +16,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import java.io.BufferedReader
 import java.io.File
+import java.io.InputStreamReader
+import kotlin.io.path.Path
+import kotlin.io.path.absolutePathString
 
 
 class MainActivity : AppCompatActivity() {
+
     private val db by lazy {
         Room.databaseBuilder(
             applicationContext,
@@ -75,7 +78,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        dbQueryLibViewModel.emptyTables()
     }
 
     fun searchForCustomer(view: View) {
@@ -123,15 +125,16 @@ class MainActivity : AppCompatActivity() {
 
     fun loadDatabaseFromCSV(view: View) {
         val delimiter = ';'
-        val reader: BufferedReader = File("data.csv").bufferedReader()
+        val inputStream = this.assets.open("data.csv")
+        val reader = BufferedReader(InputStreamReader(inputStream))
         val header = reader.readLine()
         val records = reader.lineSequence()
             .filter { it.isNotBlank() }
             .map {
                 val (customerName, productName, count) = it.split(delimiter, ignoreCase = false, limit = 3)
                 CustomersProducts(
-                    productName.trim().removeSurrounding("\""),
-                    customerName.trim().removeSurrounding("\""),
+                    productName.trim(),
+                    customerName.trim(),
                     count = count.trim().toInt())
             }.toList()
         dbQueryLibViewModel.fillDatabase(records)
