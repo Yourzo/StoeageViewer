@@ -82,4 +82,21 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$room_version")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$room_version")
 
+    // Preferences DataStore (SharedPreferences like APIs)
+    dependencies {
+        implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+        // optional - RxJava2 support
+        implementation("androidx.datastore:datastore-preferences-rxjava2:1.1.1")
+
+        // optional - RxJava3 support
+        implementation("androidx.datastore:datastore-preferences-rxjava3:1.1.1")
+    }
+
+    // Alternatively - use the following artifact without an Android dependency.
+    dependencies {
+        implementation("androidx.datastore:datastore-preferences-core:1.1.1")
+    }
+
+
 }

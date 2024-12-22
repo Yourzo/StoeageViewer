@@ -18,8 +18,8 @@ interface CustomerDao {
     @Query("SELECT * FROM customer WHERE customer.name=:customerName")
     suspend fun getCustomer(customerName: String): List<Customer>
 
-    @Query("SELECT * FROM customer")
-    suspend fun getCustomers(): List<Customer>
+    @Query("SELECT * FROM customer where customer.served = false")
+    suspend fun getNotServedCustomers(): List<Customer>
 
     @Query("DELETE FROM customer")
     suspend fun nukeTable()

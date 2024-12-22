@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,13 +43,22 @@
             android:text="@string/hladaj"
             android:onClick="searchForCustomer" />
 
+        <Button
+            android:id="@+id/show_all_customers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/listOfCustomers"
+            android:onClick="showAllCustomers"/>
+
         <TextView
+            tools:visibility="gone"
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/LabelProductInput" />
 
         <EditText
+            tools:visibility="gone"
             android:id="@+id/product_name_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,6 +66,7 @@
             android:inputType="text" />
 
         <Button
+            tools:visibility="gone"
             android:id="@+id/product_search_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,6 +85,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/loadDatabase"
-            android:onClick="loadFakabase"/>
+            android:onClick="loadDatabaseFromCSV"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

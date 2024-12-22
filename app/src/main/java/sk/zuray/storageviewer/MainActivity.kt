@@ -40,7 +40,18 @@ class MainActivity : AppCompatActivity() {
 
     private val getRes = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ) {}
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data = result.data
+            val customersProducts = dbQueryLibViewModel.getCustomersProducts(data!!.getStringExtra("name")!!)
+            val customer = dbQueryLibViewModel.getCustomer(data.getStringExtra("name")!!)
+            val intent = Intent(this, ShowStorageData::class.java)
+            intent.putExtra("products",customersProducts)
+            intent.putExtra("name", data.getStringExtra("name")!!)
+            intent.putExtra("isChecked", customer[0].served)
+            getResult.launch(intent)
+        }
+    }
 
     private val getResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -74,6 +85,9 @@ class MainActivity : AppCompatActivity() {
             return
         }
         val customersProducts = dbQueryLibViewModel.getCustomersProducts(customerName)
+        if (customersProducts.size == 0) {
+            return
+        }
         val customer = dbQueryLibViewModel.getCustomer(customerName)
         val intent = Intent(this, ShowStorageData::class.java)
         intent.putExtra("products",customersProducts)
@@ -109,7 +123,7 @@ class MainActivity : AppCompatActivity() {
 
     fun loadDatabaseFromCSV(view: View) {
         val delimiter = ';'
-        val reader: BufferedReader = File("example.txt").bufferedReader()
+        val reader: BufferedReader = File("data.csv").bufferedReader()
         val header = reader.readLine()
         val records = reader.lineSequence()
             .filter { it.isNotBlank() }
@@ -121,5 +135,12 @@ class MainActivity : AppCompatActivity() {
                     count = count.trim().toInt())
             }.toList()
         dbQueryLibViewModel.fillDatabase(records)
+    }
+
+    fun showAllCustomers(view: View) {
+        val customers: List<Customer> = dbQueryLibViewModel.getAllCustomer().sortedBy { it.name }
+        val intent = Intent(this, ShowAllCustomers::class.java)
+        intent.putExtra("customers", ArrayList(customers))
+        getRes.launch(intent)
     }
 }

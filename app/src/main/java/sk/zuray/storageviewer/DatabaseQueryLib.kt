@@ -10,6 +10,13 @@ class DatabaseQueryLib(
     private val customersDao: CustomerDao,
     private val productDao: ProductDao
 ) :ViewModel() {
+    fun getAllCustomer(): List<Customer> {
+        val data: List<Customer> = runBlocking {
+            customersDao.getNotServedCustomers()
+        }
+        return data
+    }
+
     fun getCustomer(customerName: String): List<Customer> {
         val data: List<Customer> = runBlocking {
             customersDao.getCustomer(customerName)

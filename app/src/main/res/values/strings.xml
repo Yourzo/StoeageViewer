@@ -8,4 +8,5 @@
     <string name="LabelCustomerName">Zadaj meno zákazníka:</string>
     <string name="LabelProductInput">Zadaj názov tovaru:</string>
     <string name="loadDatabase">Načítaj databázu zo zložky</string>
+    <string name="listOfCustomers">Zoznam zákazníkov</string>
 </resources>
