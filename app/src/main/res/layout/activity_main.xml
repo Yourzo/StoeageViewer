@@ -8,8 +8,8 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
@@ -25,7 +25,8 @@
             android:id="@+id/text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/LabelCustomerName" />
+            android:text="@string/LabelCustomerName"
+            />
 
         <EditText
             android:id="@+id/customer_name_field"
@@ -38,7 +39,8 @@
             android:id="@+id/customer_search_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/hladaj" />
+            android:text="@string/hladaj"
+            android:onClick="searchForCustomer" />
 
         <TextView
             android:id="@+id/textView2"
@@ -57,18 +59,21 @@
             android:id="@+id/product_search_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/hladaj" />
+            android:text="@string/hladaj"
+            android:onClick="searchForProduct"/>
 
         <Button
             android:id="@+id/show_all_orders_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/showAll" />
+            android:text="@string/showAll"
+            android:onClick="showAllOrders"/>
 
         <Button
             android:id="@+id/load_database_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/loadDatabase" />
+            android:text="@string/loadDatabase"
+            android:onClick="loadFakabase"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

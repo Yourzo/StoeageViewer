@@ -15,6 +15,9 @@ interface CustomerDao {
     @Delete
     suspend fun deleteCustomer(customer: Customer)
 
+    @Query("SELECT * FROM customer WHERE customer.name=:customerName")
+    suspend fun getCustomer(customerName: String): List<Customer>
+
     @Query("SELECT * FROM customer")
-    fun getCustomers(): Flow<List<Customer>>
+    suspend fun getCustomers(): List<Customer>
 }

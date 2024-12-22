@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "customer",
+    primaryKeys = ["name"]
 )
 data class Customer(
-    val served: Boolean,
-    @PrimaryKey(autoGenerate = true)
+    val served: Boolean = false,
     val name: String,
 )

@@ -8,24 +8,17 @@ import androidx.room.Upsert
 @Dao
 interface CustomersProductsDao {
     @Upsert
-    suspend fun upsertCustomersProducts()
+    suspend fun upsertCustomersProducts(customersProducts: CustomersProducts)
 
     @Delete
-    suspend fun deleteCustomersProducts()
+    suspend fun deleteCustomersProducts(customersProducts: CustomersProducts)
 
-    @Query("""
-        select *
-        from customers_products
-        join customer on customer.name=customerName
-        where productName = :productName and served=false
-        """)
-    suspend fun getNotServedProducts(productName: String): List<CustomersProducts>
+    @Query("select * from customers_products join customer on customer.name=customers_products.customerName where productName = :productName and served=false")
+    suspend fun getNotServedProduct(productName: String): List<CustomersProducts>
 
-    @Query("""
-        select *
-        from customers_products
-        left join customer on customer.name=customerName
-        where customerName = :customerName and served=false
-        """)
-    suspend fun getNotServedCustomers(customerName: String): List<CustomersProducts>
+    @Query("select * from customers_products join customer on customer.name=customers_products.customerName where served=false")
+    suspend fun getNotServedProducts(): List<CustomersProducts>
+
+    @Query("select * from customers_products left join customer on customer.name=customers_products.customerName where customerName = :customerName")
+    suspend fun getCustomersProducts(customerName: String): List<CustomersProducts>
 }
