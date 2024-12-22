@@ -78,4 +78,16 @@ class DatabaseQueryLib(
             }
         }
     }
+
+    fun emptyTables() {
+        viewModelScope.launch {
+            customersDao.nukeTable()
+        }
+        viewModelScope.launch {
+            customersProductsDao.nukeTable()
+        }
+        runBlocking {
+            productDao.nukeTable()
+        }
+    }
 }

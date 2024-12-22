@@ -21,4 +21,7 @@ interface CustomersProductsDao {
 
     @Query("select * from customers_products left join customer on customer.name=customers_products.customerName where customerName = :customerName")
     suspend fun getCustomersProducts(customerName: String): List<CustomersProducts>
+
+    @Query("DELETE FROM customers_products")
+    suspend fun nukeTable()
 }

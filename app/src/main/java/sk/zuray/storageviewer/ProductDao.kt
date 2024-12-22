@@ -16,4 +16,7 @@ interface ProductDao {
 
     @Query("SELECT * FROM product")
     suspend fun getAllProducts(): List<Product>
+
+    @Query("DELETE FROM product")
+    suspend fun nukeTable()
 }

@@ -20,4 +20,7 @@ interface CustomerDao {
 
     @Query("SELECT * FROM customer")
     suspend fun getCustomers(): List<Customer>
+
+    @Query("DELETE FROM customer")
+    suspend fun nukeTable()
 }

@@ -3,6 +3,7 @@ package sk.zuray.storageviewer
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +18,7 @@ import androidx.room.Room
 import java.io.BufferedReader
 import java.io.File
 
+
 class MainActivity : AppCompatActivity() {
     private val db by lazy {
         Room.databaseBuilder(
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
             "storage.db"
         ).build()
     }
+
     val dbQueryLibViewModel by viewModels<DatabaseQueryLib>(
         factoryProducer = {
             object : ViewModelProvider.Factory {
@@ -34,6 +37,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
     )
+
+    private val getRes = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {}
+
     private val getResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -46,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -55,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        dbQueryLibViewModel.emptyTables()
     }
 
     fun searchForCustomer(view: View) {
@@ -82,6 +92,9 @@ class MainActivity : AppCompatActivity() {
 
     fun showAllOrders(view: View) {
         val allOrders = dbQueryLibViewModel.getCustomersNotServedProducts()
+        val intent = Intent(this, ShowAllNotServedProducts::class.java)
+        intent.putExtra("products", allOrders)
+        startActivity(intent)
     }
 
     fun loadFakabase(view: View) {
